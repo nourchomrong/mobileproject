@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/login_screen.dart';
+import 'package:project/authpage/login_screen.dart';
 import 'package:project/widgets/app_logo.dart';
 class StartupScreen extends StatelessWidget{
   const StartupScreen({super.key});
