@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:project/data/shared_pref_manager.dart';
 import 'package:project/widgets/app_logo.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -7,6 +9,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final usernameCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
+
+
+  Future<void> _onLoginHandler() async{
+    String username = usernameCtrl.text;
+    String password = passwordCtrl.text;
+
+
+    String user = await SharedPrefManager.instance.getPref("username");
+    String pass = await SharedPrefManager.instance.getPref("pass");
+
+    if(user == username && pass == password){
+      final snackBar = SnackBar(content: Text("Login success"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }else{
+      final snackBar = SnackBar(content: Text("Login failed"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    print("Username: $username , Password : $password");
+  }
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -54,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     final username = TextFormField(
+      controller: usernameCtrl,
       validator: validateEmail,
 
       onChanged: (value) {
@@ -83,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final password = TextFormField(
+      controller: passwordCtrl,
       obscureText: !isPasswordVisible,
       validator: validatePassword,
 
@@ -114,11 +142,12 @@ class _LoginScreenState extends State<LoginScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFF0997A4),
         ),
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            Navigator.pushNamed(context, '/home');
-          }
-        },
+        onPressed: _onLoginHandler,
+        // onPressed: () {
+        //   if (_formKey.currentState!.validate()) {
+        //   Navigator.pushNamed(context, '/home');
+        //   }
+        // },
         child: Text(
           "ចូលប្រើប្រាស់",
           style: TextStyle(color: Colors.white),
@@ -172,30 +201,32 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                logo,
-                SizedBox(height: 30),
-                username,
-                SizedBox(height: 10),
-                password,
-                SizedBox(height: 10),
-                forgotPassword,
-                SizedBox(height: 20),
-                loginButton,
-                SizedBox(height: 10),
-                createAccount,
-                SizedBox(height: 20),
-                socialWidget,
-                SizedBox(height: 20),
-                facebookAndGoogle,
-              ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  logo,
+                  SizedBox(height: 30),
+                  username,
+                  SizedBox(height: 10),
+                  password,
+                  SizedBox(height: 10),
+                  forgotPassword,
+                  SizedBox(height: 20),
+                  loginButton,
+                  SizedBox(height: 10),
+                  createAccount,
+                  SizedBox(height: 20),
+                  socialWidget,
+                  SizedBox(height: 20),
+                  facebookAndGoogle,
+                ],
+              ),
             ),
           ),
         ),

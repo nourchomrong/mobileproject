@@ -194,30 +194,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                logo,
-                SizedBox(height: 30),
-                username,
-                SizedBox(height: 10),
-                email,
-                SizedBox(height: 10),
-                password,
-                SizedBox(height: 20),
-                registerButton,
-                SizedBox(height: 10),
-                loginLink,
-                SizedBox(height: 20),
-                socialWidget,
-                SizedBox(height: 20),
-                facebookAndGoogle,
-              ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  logo,
+                  SizedBox(height: 30),
+                  username,
+                  SizedBox(height: 10),
+                  email,
+                  SizedBox(height: 10),
+                  password,
+                  SizedBox(height: 20),
+                  registerButton,
+                  SizedBox(height: 10),
+                  loginLink,
+                  SizedBox(height: 20),
+                  socialWidget,
+                  SizedBox(height: 20),
+                  facebookAndGoogle,
+                ],
+              ),
             ),
           ),
         ),
